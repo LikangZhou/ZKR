@@ -1,0 +1,5 @@
+update ldpath set  codevalue='http://qualityassurance-siticcmiecm2.hk.hsbc:30050/iccm-content-mpf-war/doc-search/search-doc-list' 
+where code='openCount1'
+
+update ldpath set  codevalue='http://qualityassurance-siticcmiecm2.hk.hsbc:30050/iccm-content-mpf-war/doc-retrieval/doc-id' 
+where code='openCount2'
