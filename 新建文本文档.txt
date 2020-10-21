@@ -1,5 +1,71 @@
-update ldpath set  codevalue='http://qualityassurance-siticcmiecm2.hk.hsbc:30050/iccm-content-mpf-war/doc-search/search-doc-list' 
-where code='openCount1'
-
-update ldpath set  codevalue='http://qualityassurance-siticcmiecm2.hk.hsbc:30050/iccm-content-mpf-war/doc-retrieval/doc-id' 
-where code='openCount2'
+	  select
+      lc.transno       ,
+      lc.grpcontno     ,     
+      lc.managecom     ,     
+      lc.insurancecom  ,   
+      lc.bankaccno, 
+      (case
+        when lc.insurancecom ='AXA' then  lc.contno 
+        else lc.proposalcontno
+         end ) proposalcontno,
+       (case
+        when lc.insurancecom ='AXA' then  lc.finalproposalcontno 
+        else lc.contno
+         end ) contno ,   
+      lc.agentcode     ,    
+      to_char(lc.polapplydate,'yyyy-MM-dd')  polapplydate,    
+      lp.appntname  as appntname,  
+      ld.codename  as appntidtype,
+      lp.idno as appntidno ,  
+      ls.lcinsuredname as insuredname, 
+      ld1.codename as insuredidtype,
+      ls.lcinsuredidno  as insuredidno,
+      lc.getpolmode ,
+      lc.appflag,     
+      lp.health  as appInfromFlag,
+      ls.health as insureInfromFlag,
+      lc.riskcode,
+      lc.chargecode,
+      lc.firsttrialtime,
+      lc.cancelflag,
+      to_char(lc.effectiveDate,'yyyy-MM-dd')  effectiveDate
+      from lccont lc 
+      left join lcappnt lp on lc.transno = lp.transno 
+      left join lcinsured ls on lc.transno = ls.transno 
+      left join ldcode ld on ld.code=lp.idtype and ld.codetype ='idtype'
+      left join ldcode ld1 on ld1.code=ls.lcinsuredidtype and ld1.codetype ='idtype'
+      where lc.appflag in ('04','05','06','07') and to_char (lc.modifydate, 'yyyymmdd') 
+      = to_char(#{curDate}-1, 'yyyymmdd' ) and lc.insurancecom=#{company}
+      union all
+      select
+      lc.transno       ,
+      lc.grpcontno     ,     
+      lc.managecom     ,     
+      lc.insurancecom  ,   
+      lc.bankaccno,  
+      lc.proposalcontno,
+      lc.contno      ,   
+      lc.agentcode     ,    
+      to_char(lc.polapplydate,'yyyy-MM-dd')  polapplydate,  
+      lp.appntname  as appntname,  
+      ld.codename  as appntidtype,
+      lp.idno as appntidno ,  
+      ls.lcinsuredname as insuredname, 
+      ld1.codename as insuredidtype,
+      ls.lcinsuredidno  as insuredidno,
+      lc.getpolmode ,
+      lc.appflag,     
+      lp.health  as appInfromFlag,
+      ls.health as insureInfromFlag, 
+      lc.riskcode,
+      lc.chargecode,
+      lc.firsttrialtime,
+      lc.cancelflag,
+      to_char(lc.effectiveDate,'yyyy-MM-dd')  effectiveDate
+      from lccont lc 
+      left join lcappnt lp on lc.transno = lp.transno 
+      left join lcinsured ls on lc.transno = ls.transno 
+      left join ldcode ld on ld.code=lp.idtype and ld.codetype ='idtype'
+      left join ldcode ld1 on ld1.code=ls.lcinsuredidtype and ld1.codetype ='idtype'
+      where (lc.appflag in ('02','12','14') and lc.chargecode ='S') and to_char (lc.modifydate, 'yyyymmdd') 
+      = to_char(#{curDate}-1, 'yyyymmdd' ) and lc.insurancecom=#{company}	
