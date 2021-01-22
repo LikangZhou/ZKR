@@ -2,6 +2,6 @@ prompt Importing table menu...
 set feedback off
 set define off
 insert into menu (ID, PAR_UID, MENU_NAME, MENU_DESC, MENU_STATUS, MENU_LINK, MENU_INDEX, T_S_UID, MEDDLE_MENU, MEDDLE_MENU_NAME, CRT_TIME, UPD_TIME, SUB_MENU_NAME, SUB_MENU)
-values ('04def291-2e6c-43e7-b0f2-fe65eb490ca1', null, '²âÊÔµ¥Î¬»¤Ò³Ãæ', '1', null, '/application/testsingle/jsp/testsingle.jsp', 0, null, 8, '²âÊÔµ¥Î¬»¤Ò³Ãæ', null, null, 'Òø±£ÒµÎñ', 1);
+values ('04def291-2e6c-43e7-b0f2-fe65eb490ca1', null, 'æµ‹è¯•å•ç»´æŠ¤é¡µé¢', '1', null, '/application/testsingle/jsp/testsingle.jsp', 0, null, 8, 'æµ‹è¯•å•ç»´æŠ¤é¡µé¢', null, null, 'é“¶ä¿ä¸šåŠ¡', 1);
 
 prompt Done.
